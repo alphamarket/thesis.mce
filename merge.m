@@ -90,7 +90,7 @@ if strcmp(group.group{groupIndex}.type,'NewSA1')
     end
 end
 if strcmp(group.group{groupIndex}.type,'NewSA')
-   
+
     for agent=1:group.group{groupIndex}.numberOfAgent
        tmin=group.subtest{subtestindex}.group{groupIndex}.agent{agent}.minlen;
        tmin(find(tmin==-1))=100;
@@ -177,9 +177,9 @@ if strcmp(group.group{groupIndex}.type,'ShockehBaba1')
     [~ , indexagent]=max(temp');
     tempq=zeros(group.subtest{subtestindex}.group{groupIndex}.environment{1}.numberOfState,group.subtest{subtestindex}.group{groupIndex}.environment{1}.numberOfAction);
     for e=1:size(WSSType,2)
-        
+
         [~,policy]=max(group.subtest{subtestindex}.group{groupIndex}.agent{indexagent(e)}.q');
-        
+
         for j=1:group.subtest{subtestindex}.group{groupIndex}.environment{1}.numberOfState
             tempq(j,policy(j))=tempq(j,policy(j))+1;
         end
@@ -296,7 +296,7 @@ if strcmp(group.group{groupIndex}.type,'Shock')
 %             out(i,j)=group.subtest{subtestindex}.group{groupIndex}.agent{tmpindex}.q(i,j);
                 out(i,j)=(tempshock(1,i,j)/sum(tempshock(1,i,j)))* group.subtest{subtestindex}.group{groupIndex}.agent{1}.q(i,j);
             for agent=2:group.group{groupIndex}.numberOfAgent
-                
+
                 out(i,j)=out(i,j)+(tempshock(agent,i,j)/sum(tempshock(1,i,j)))* group.subtest{subtestindex}.group{groupIndex}.agent{agent}.q(i,j);
             end
         end
@@ -312,17 +312,12 @@ if strcmp(group.group{groupIndex}.type,'MCE')
     [~ , indexagent]=min(temp');
     tempq=zeros(group.subtest{subtestindex}.group{groupIndex}.environment{1}.numberOfState,group.subtest{subtestindex}.group{groupIndex}.environment{1}.numberOfAction);
     for e=1:size(WSSType,2)
-         k=0;
         clear data;
         for i=1:group.group{groupIndex}.numberOfAgent
-            if i==indexagent(e)
-                k=1;
-            else
-                data{i-k}.e=group.subtest{subtestindex}.group{groupIndex}.agent{i}.e(WSSType{e},group.group{groupIndex}.temperature);
-                data{i-k}.q=group.subtest{subtestindex}.group{groupIndex}.agent{i}.q;
-            end
+            data{i}.e=group.subtest{subtestindex}.group{groupIndex}.agent{i}.e(WSSType{e},group.group{groupIndex}.temperature);
+            data{i}.q=group.subtest{subtestindex}.group{groupIndex}.agent{i}.q;
         end
-        tempagent=group.subtest{subtestindex}.group{groupIndex}.agent{indexagent(e)}.merge(WSSType{e},data,group.group{groupIndex}.temperature);
+        % tempagent=group.subtest{subtestindex}.group{groupIndex}.agent{indexagent(e)}.merge(WSSType{e},data,group.group{groupIndex}.temperature);
         tempq=tempq + tempagent.q;
     end
     for i=1:group.group{groupIndex}.numberOfAgent
