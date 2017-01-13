@@ -7,8 +7,8 @@ close all;
     cooperativeLearningsize=200;IndividualLearningsize=5;
     temperature=0.4;SelectAction=0;
     test{1}.environment=@maze;
-    
     test{1}.subtestsize=subtestsize;
+
     test{1}.group{1}.temperature=0.10;
     test{1}.group{1}.SelectAction=1;
     test{1}.group{1}.cooperativeLearningsize=cooperativeLearningsize;
@@ -17,23 +17,23 @@ close all;
     test{1}.group{1}.beta=beta;
     test{1}.group{1}.gamma=gamma;
     test{1}.group{1}.alpha=alpha;
-    test{1}.group{1}.name='NewSA';
-    test{1}.group{1}.type='NewSA';
+    test{1}.group{1}.name='MCE';
+    test{1}.group{1}.type='MCE';
     test{1}.group{1}.show='--R';
     test{1}.group{1}.micro=0.5;
     
-    test{1}.group{2}.temperature=0.25;
-    test{1}.group{2}.SelectAction=1;
-    test{1}.group{2}.cooperativeLearningsize=cooperativeLearningsize;
-    test{1}.group{2}.IndividualLearningsize=IndividualLearningsize;
-    test{1}.group{2}.numberOfAgent=numberOfAgent;
-    test{1}.group{2}.beta=beta;
-    test{1}.group{2}.gamma=gamma;
-    test{1}.group{2}.alpha=alpha;
-    test{1}.group{2}.name='MCE';
-    test{1}.group{2}.type='MCE';
-    test{1}.group{2}.show='-b'
-    test{1}.group{2}.micro=0.50;
+%     test{1}.group{2}.temperature=0.25;
+%     test{1}.group{2}.SelectAction=1;
+%     test{1}.group{2}.cooperativeLearningsize=cooperativeLearningsize;
+%     test{1}.group{2}.IndividualLearningsize=IndividualLearningsize;
+%     test{1}.group{2}.numberOfAgent=numberOfAgent;
+%     test{1}.group{2}.beta=beta;
+%     test{1}.group{2}.gamma=gamma;
+%     test{1}.group{2}.alpha=alpha;
+%     test{1}.group{2}.name='MCE';
+%     test{1}.group{2}.type='MCE';
+%     test{1}.group{2}.show='-b'
+%     test{1}.group{2}.micro=0.50;
     
 %     test{1}.group{3}.temperature=0.50;
 %     test{1}.group{3}.SelectAction=1;
