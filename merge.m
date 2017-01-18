@@ -312,6 +312,34 @@ if strcmp(group.group{groupIndex}.type,'MCE')
     [~ , indexagent]=min(temp');
     tempq=zeros(group.subtest{subtestindex}.group{groupIndex}.environment{1}.numberOfState,group.subtest{subtestindex}.group{groupIndex}.environment{1}.numberOfAction);
     for e=1:size(WSSType,2)
+         k=0;
+        clear data;
+        for i=1:group.group{groupIndex}.numberOfAgent
+            if i==indexagent(e)
+                k=1;
+            else
+                data{i-k}.e=group.subtest{subtestindex}.group{groupIndex}.agent{i}.e(WSSType{e},group.group{groupIndex}.temperature);
+                data{i-k}.q=group.subtest{subtestindex}.group{groupIndex}.agent{i}.q;
+            end
+        end
+        tempagent=group.subtest{subtestindex}.group{groupIndex}.agent{indexagent(e)}.merge(WSSType{e},data,group.group{groupIndex}.temperature);
+        tempq=tempq + tempagent.q;
+    end
+    for i=1:group.group{groupIndex}.numberOfAgent
+        group.subtest{subtestindex}.group{groupIndex}.agent{i}.tempq=tempq;
+    end
+    out=group.subtest{subtestindex}.group{groupIndex}.agent;
+end
+if strcmp(group.group{groupIndex}.type,'MCE-FCI')
+    WSSType={'negative','AM','normal','absolute','gradian','positive'};
+    for e=1:size(WSSType,2)
+        for agent=1:group.group{groupIndex}.numberOfAgent
+            temp(e,agent)=group.subtest{subtestindex}.group{groupIndex}.agent{agent}.e(WSSType{e},group.group{groupIndex}.temperature);
+        end
+    end
+    [~ , indexagent]=min(temp');
+    tempq=zeros(group.subtest{subtestindex}.group{groupIndex}.environment{1}.numberOfState,group.subtest{subtestindex}.group{groupIndex}.environment{1}.numberOfAction);
+    for e=1:size(WSSType,2)
         clear data;
         for i=1:group.group{groupIndex}.numberOfAgent
             data{i}.e=group.subtest{subtestindex}.group{groupIndex}.agent{i}.e(WSSType{e},group.group{groupIndex}.temperature);
@@ -326,7 +354,7 @@ if strcmp(group.group{groupIndex}.type,'MCE')
                 x(end+1, :) = data{i}.q(s, :);
             end
             for a=1:group.subtest{subtestindex}.group{groupIndex}.environment{1}.numberOfAction
-                tempq(s, a) = tempq(s, a) + FCI(x(:, a), A, 'k-mean');
+                tempq(s, a) = tempq(s, a) + FCI(x(:, a), A, group.group{groupIndex}.fci_method);
             end
         end
         % tempagent=group.subtest{subtestindex}.group{groupIndex}.agent{indexagent(e)}.merge(WSSType{e},data,group.group{groupIndex}.temperature);
