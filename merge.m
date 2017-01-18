@@ -317,8 +317,20 @@ if strcmp(group.group{groupIndex}.type,'MCE')
             data{i}.e=group.subtest{subtestindex}.group{groupIndex}.agent{i}.e(WSSType{e},group.group{groupIndex}.temperature);
             data{i}.q=group.subtest{subtestindex}.group{groupIndex}.agent{i}.q;
         end
+        a = [];
+        for i=1:group.group{groupIndex}.numberOfAgent, a(end+1) = data{i}.e; end
+        A = a ./ sum(a);
+        for s=1:group.subtest{subtestindex}.group{groupIndex}.environment{1}.numberOfState
+            x = [];
+            for i=1:group.group{groupIndex}.numberOfAgent
+                x(end+1, :) = data{i}.q(s, :);
+            end
+            for a=1:group.subtest{subtestindex}.group{groupIndex}.environment{1}.numberOfAction
+                tempq(s, a) = tempq(s, a) + FCI(x(:, a), A, 'k-mean');
+            end
+        end
         % tempagent=group.subtest{subtestindex}.group{groupIndex}.agent{indexagent(e)}.merge(WSSType{e},data,group.group{groupIndex}.temperature);
-        tempq=tempq + tempagent.q;
+        % tempq=tempq + tempagent.q;
     end
     for i=1:group.group{groupIndex}.numberOfAgent
         group.subtest{subtestindex}.group{groupIndex}.agent{i}.tempq=tempq;

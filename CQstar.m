@@ -3,7 +3,8 @@ clc;
 close all;
 %%
 %Create Test 1
-    subtestsize=2;beta=0.01;gamma=0.9;alpha=0.9;numberOfAgent=3;
+    subtestsize=1;
+    beta=0.01;gamma=0.9;alpha=0.9;numberOfAgent=3;
     cooperativeLearningsize=200;IndividualLearningsize=5;
     temperature=0.4;SelectAction=0;
     test{1}.environment=@maze;
@@ -21,7 +22,7 @@ close all;
     test{1}.group{1}.type='MCE';
     test{1}.group{1}.show='--R';
     test{1}.group{1}.micro=0.5;
-    
+
 %     test{1}.group{2}.temperature=0.25;
 %     test{1}.group{2}.SelectAction=1;
 %     test{1}.group{2}.cooperativeLearningsize=cooperativeLearningsize;
@@ -34,7 +35,7 @@ close all;
 %     test{1}.group{2}.type='MCE';
 %     test{1}.group{2}.show='-b'
 %     test{1}.group{2}.micro=0.50;
-    
+
 %     test{1}.group{3}.temperature=0.50;
 %     test{1}.group{3}.SelectAction=1;
 %     test{1}.group{3}.cooperativeLearningsize=cooperativeLearningsize;
@@ -47,7 +48,7 @@ close all;
 %     test{1}.group{3}.type='NewSA1';
 %     test{1}.group{3}.show='--R';
 %     test{1}.group{3}.micro=0.50;
-%    
+%
 %     test{1}.group{4}.temperature=0.75;
 %     test{1}.group{4}.SelectAction=1;
 %     test{1}.group{4}.cooperativeLearningsize=cooperativeLearningsize;
@@ -60,7 +61,7 @@ close all;
 %     test{1}.group{4}.type='NewSA1';
 %     test{1}.group{4}.show='--R';
 %     test{1}.group{4}.micro=0.50;
-%    
+%
 %     test{1}.group{5}.temperature=1;
 %     test{1}.group{5}.SelectAction=1;
 %     test{1}.group{5}.cooperativeLearningsize=cooperativeLearningsize;
@@ -73,7 +74,6 @@ close all;
 %     test{1}.group{5}.type='NewSA1';
 %     test{1}.group{5}.show='--R';
 %     test{1}.group{5}.micro=0.50;
-    
+
     t=Run(test);
-    
-    
+
