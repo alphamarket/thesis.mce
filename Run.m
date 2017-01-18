@@ -33,7 +33,7 @@ function test = Run( test)
                                 test{testindex}.subtest{subtestindex}.group{groupIndex}.agent{agent}.log.Changes{end+1}=test{testindex}.subtest{subtestindex}.group{groupIndex}.agent{agent}.templog;
                                 test{testindex}.subtest{subtestindex}.group{groupIndex}.agent{agent}=test{testindex}.subtest{subtestindex}.group{groupIndex}.agent{agent}.setstate(test{testindex}.subtest{subtestindex}.group{groupIndex}.environment{agent}.locationNumber(),0);
                             end
-                           
+
                            test{testindex}.subtest{subtestindex}.group{groupIndex}.agent{agent}.log.Avgreward(counterindex)=tempreward;
                            test{testindex}.subtest{subtestindex}.group{groupIndex}.agent{agent}.log.Avglength(counterindex)=sum(test{testindex}.subtest{subtestindex}.group{groupIndex}.agent{agent}.length)/counterindex;
                            [test{testindex}.subtest{subtestindex}.group{groupIndex}.agent{agent},action]=test{testindex}.subtest{subtestindex}.group{groupIndex}.agent{agent}.move(test{testindex}.group{groupIndex}.temperature,test{testindex}.group{groupIndex}.SelectAction,test{testindex}.group{groupIndex}.micro);
@@ -62,7 +62,7 @@ function test = Run( test)
             end
         end
     end
-        
+
         tempfig=figure;
         for i=1:size(test{testindex}.group,2)
             clear temp1;
@@ -77,7 +77,11 @@ function test = Run( test)
             temp1=plot((temp1(1:end)),test{1}.group{i}.show,'DisplayName',test{1}.group{i}.name);
             hold on
         end
-        legend(gca,'show');
+        legend(gca, 'show');
+        xlabel('Trials')
+        ylabel('Avg. Moves');
+        savefig('1.fig')
+        print('1.png', '-r300', '-dpng')
         tempfig=figure;
         for i=1:size(test{testindex}.group,2)
             clear temp;
@@ -93,6 +97,10 @@ function test = Run( test)
             hold on
         end
         legend(gca,'show');
+        xlabel('Trials')
+        ylabel('Avg. Moves');
+        savefig('2.fig')
+        print('2.png', '-r300', '-dpng')
         tempfig=figure;
         for i=1:size(test{testindex}.group,2)
             clear temp1;
@@ -108,5 +116,9 @@ function test = Run( test)
             hold on
         end
         legend(gca,'show');
+        xlabel('Trials')
+        ylabel('Avg. Moves');
+        savefig('3.fig')
+        print('3.png', '-r300', '-dpng')
 end
 
